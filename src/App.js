@@ -17,7 +17,7 @@ const createUser = async()=> {
   await addDoc(usersCollectionRef, {name: newName, age :Number(newAge),sex:newSex});
   //await addDoc(usersCollectionRef, {name: newName, age :Number(newAge)});
 };
-
+//test
 const updateUser =async(id,age)=>{
   const userDoc = doc(db,"users",id);
   const newFields = {age: age + 1};
