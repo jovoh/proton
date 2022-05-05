@@ -1,9 +1,31 @@
+import React, { useMemo } from 'react'
+
+//import MOCK_DATA from './MOCK_DATA.json'
+
+import './App.css'
+
+
+
+
 import {useState, useEffect} from "react";
 import './App.css';
 import {db} from './firebase-config'
 import {collection, getDocs,addDoc,updateDoc,doc,deleteDoc} from "firebase/firestore"
 
+
+
+
+
 function App() {
+
+
+
+
+
+  
+    
+
+
   const [newName, setNewName] = useState("");
   const [newAge, setNewAge] = useState(0);
   const [newSex, setNewSex] = useState("");
@@ -11,11 +33,24 @@ function App() {
   const [users,setUsers]= useState([]);
   const usersCollectionRef = collection(db,"users");
 
+  const getUsers = async()=>{
+    const data = await getDocs(usersCollectionRef)
+    //console.log(data);
+    setUsers(data.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
+
+ 
+  };
 
 //create new user  
 const createUser = async()=> {
   await addDoc(usersCollectionRef, {name: newName, age :Number(newAge),sex:newSex});
   //await addDoc(usersCollectionRef, {name: newName, age :Number(newAge)});
+
+  
+  getUsers();
+
+
+
 };
 //test
 const updateUser =async(id,age)=>{
@@ -26,20 +61,22 @@ const updateUser =async(id,age)=>{
 const deleteUser = async(id)=>{
   const userDoc = doc(db,"users",id);
   await deleteDoc(userDoc);
+  getUsers();
 };
   useEffect(() =>{
-
+/*
     const getUsers = async()=>{
       const data = await getDocs(usersCollectionRef)
       //console.log(data);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
 
-    };
+    };*/
     getUsers();
   },[]);
 
   return (
     <div className="App">
+      
     <table>
         <tr>
           <td>
@@ -62,7 +99,14 @@ const deleteUser = async(id)=>{
           Sex :
           </td>
           <td>
-            <input placeholder="Sex ....." onChange={(event) => {setNewSex(event.target.value)}} />       
+           {/* <input  placeholder="Sex ....." onChange={(event) => {setNewSex(event.target.value)}} />   */}
+
+            <select style={{width:'150px'}} onChange={(event) => {setNewSex(event.target.value)}}>
+              
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+            </select>
+
           </td>
         </tr><tr>
           <td>
@@ -73,24 +117,47 @@ const deleteUser = async(id)=>{
           </td>
         </tr>
     </table>
+    
+                
        {users.map((user) => {
           return (
             <div>
               {" "}
-              <h1>Name: {user.name}</h1>
-              <h1>Age: {user.age}</h1>
-              <h1>Sex: {user.sex}</h1>
-              <button onClick={()=> {
+              <table id ="customers">
+      
+    <tr>
+                  <th >wait</th>
+                  <th >wait</th>
+                  <th >Name</th>
+                  <th >Age</th>
+                  <th >Sex</th>
+                </tr>
+               
+              <tr>
+                  <td><button onClick={()=> {
                  updateUser(user.id,user.age);
-              }}>Increase Age</button>
-              <button onClick={()=> {
+              }}>Increase Age</button></td>
+                  <td><button onClick={()=> {
                  deleteUser(user.id);
-              }}>Delete User</button>
+              }}>Delete User</button></td>
+                  <td>{user.name}</td>
+                  <td>{user.age}</td>
+                  <td>{user.sex}</td>
+                </tr>
+              
+              
+          </table>
+               
+               
+              
+              
             </div>
           );
   
-         
-       })}
+       }) //end map
+       
+       
+       }
      
     </div>
   );
