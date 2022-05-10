@@ -125,7 +125,7 @@ const deleteUser = async(id)=>{
               {" "}
               <table id ="customers">
       
-    <tr>
+     <tr>
                   <th >wait</th>
                   <th >wait</th>
                   <th >Name</th>
@@ -133,16 +133,16 @@ const deleteUser = async(id)=>{
                   <th >Sex</th>
                 </tr>
                
-              <tr>
-                  <td><button onClick={()=> {
+              <tr> 
+                  <td width={50}><button onClick={()=> {
                  updateUser(user.id,user.age);
               }}>Increase Age</button></td>
-                  <td><button onClick={()=> {
+                  <td width={50}><button onClick={()=> {
                  deleteUser(user.id);
               }}>Delete User</button></td>
-                  <td>{user.name}</td>
-                  <td>{user.age}</td>
-                  <td>{user.sex}</td>
+                  <td width={50}>{user.name}</td>
+                  <td width={50}>{user.age}</td>
+                  <td width={50}>{user.sex}</td>
                 </tr>
               
               
