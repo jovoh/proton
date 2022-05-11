@@ -74,6 +74,47 @@ const deleteUser = async(id)=>{
   return (
     <div className="App">
           
+          <table>
+        <tr>
+          <td>
+          Name : 
+          </td>
+          <td>
+            <input placeholder="Name...." onChange={(event) => {setNewName(event.target.value)}}/>     
+          </td>
+        </tr>
+        <tr>
+          <td>
+          Age :
+          </td>
+          <td>
+            <input type ="number" placeholder="Age...." onChange={(event) => {setNewAge(event.target.value)}} />      
+          </td>
+        </tr>
+        <tr>
+          <td>
+          Sex :
+          </td>
+          <td>
+           {/* <input  placeholder="Sex ....." onChange={(event) => {setNewSex(event.target.value)}} />   */}
+
+            <select style={{width:'150px'}} onChange={(event) => {setNewSex(event.target.value)}}>
+              
+                  <option value="Male" selected>Male</option>
+                  <option value="Female">Female</option>
+            </select>
+
+          </td>
+        </tr><tr>
+          <td>
+           
+          </td>
+          <td>
+            <button onClick ={createUser}> Create User </button>     
+          </td>
+        </tr>
+          </table>
+
           <table id ="customers">
                 <thead>
                   <tr>
