@@ -78,10 +78,10 @@ const deleteUser = async(id)=>{
                 <thead>
                   <tr>
                       <th></th>
-                      <th width={5}>wait</th>
-                      <th width={50}>Name</th>
-                      <th width={50}>Age</th>
-                      <th width={50}>Sex</th>
+                      <th ></th>
+                      <th >Name</th>
+                      <th >Age</th>
+                      <th >Sex</th>
                   </tr>
                 </thead>
 
@@ -92,15 +92,15 @@ const deleteUser = async(id)=>{
               <tr> 
 
 
-                  <td width={50}><button onClick={()=> {
+                  <td ><button onClick={()=> {
                  updateUser(user.id,user.age);
               }}>Increase Age</button></td>
-                  <td width={50}><button onClick={()=> {
+                  <td ><button onClick={()=> {
                  deleteUser(user.id);
               }}>Delete User</button></td>
-                  <td width={50}>{user.name}</td>
-                  <td width={50}>{user.age}</td>
-                  <td width={50}>{user.sex}</td>
+                  <td >{user.name}</td>
+                  <td >{user.age}</td>
+                  <td >{user.sex}</td>
                 </tr>
                 </tbody>
                 
