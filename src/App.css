@@ -42,7 +42,7 @@
 #customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
-  width: 50%;
+  width: 1000px;
 }
 
 #customers td, #customers th {

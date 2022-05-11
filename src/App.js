@@ -10,21 +10,14 @@ import './App.css'
 import {useState, useEffect} from "react";
 import './App.css';
 import {db} from './firebase-config'
-import {collection, getDocs,addDoc,updateDoc,doc,deleteDoc} from "firebase/firestore"
+import {collection, getDocs,addDoc,updateDoc,doc,deleteDoc,orderBy,query} from "firebase/firestore"
+import { FirebaseError } from 'firebase/app';
 
 
 
 
 
 function App() {
-
-
-
-
-
-  
-    
-
 
   const [newName, setNewName] = useState("");
   const [newAge, setNewAge] = useState(0);
@@ -33,9 +26,13 @@ function App() {
   const [users,setUsers]= useState([]);
   const usersCollectionRef = collection(db,"users");
 
+
   const getUsers = async()=>{
+    
     const data = await getDocs(usersCollectionRef)
     //console.log(data);
+   // 
+   
     setUsers(data.docs.map((doc) => ({ ...doc.data(), id:doc.id})));
 
  
@@ -76,64 +73,25 @@ const deleteUser = async(id)=>{
 
   return (
     <div className="App">
-      
-    <table>
-        <tr>
-          <td>
-          Name : 
-          </td>
-          <td>
-            <input placeholder="Name...." onChange={(event) => {setNewName(event.target.value)}}/>     
-          </td>
-        </tr>
-        <tr>
-          <td>
-          Age :
-          </td>
-          <td>
-            <input type ="number" placeholder="Age...." onChange={(event) => {setNewAge(event.target.value)}} />      
-          </td>
-        </tr>
-        <tr>
-          <td>
-          Sex :
-          </td>
-          <td>
-           {/* <input  placeholder="Sex ....." onChange={(event) => {setNewSex(event.target.value)}} />   */}
+          
+          <table id ="customers">
+                <thead>
+                  <tr>
+                      <th></th>
+                      <th width={5}>wait</th>
+                      <th width={50}>Name</th>
+                      <th width={50}>Age</th>
+                      <th width={50}>Sex</th>
+                  </tr>
+                </thead>
 
-            <select style={{width:'150px'}} onChange={(event) => {setNewSex(event.target.value)}}>
-              
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-            </select>
-
-          </td>
-        </tr><tr>
-          <td>
-           
-          </td>
-          <td>
-            <button onClick ={createUser}> Create User </button>     
-          </td>
-        </tr>
-    </table>
-    
+               { users.map((user) => (
                 
-       {users.map((user) => {
-          return (
-            <div>
-              {" "}
-              <table id ="customers">
-      
-     <tr>
-                  <th >wait</th>
-                  <th >wait</th>
-                  <th >Name</th>
-                  <th >Age</th>
-                  <th >Sex</th>
-                </tr>
-               
+              
+              <tbody>
               <tr> 
+
+
                   <td width={50}><button onClick={()=> {
                  updateUser(user.id,user.age);
               }}>Increase Age</button></td>
@@ -144,21 +102,11 @@ const deleteUser = async(id)=>{
                   <td width={50}>{user.age}</td>
                   <td width={50}>{user.sex}</td>
                 </tr>
-              
-              
+                </tbody>
+                
+               ))};
           </table>
-               
-               
-              
-              
-            </div>
-          );
-  
-       }) //end map
-       
-       
-       }
-     
+   
     </div>
   );
 }
